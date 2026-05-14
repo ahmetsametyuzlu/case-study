@@ -49,13 +49,7 @@ export default function StudentForm({ student, onSave, onCancel }: Props) {
         </div>
         <div className="form-group">
           <label htmlFor="Phone">Phone</label>
-          <input
-            id="Phone"
-            name="Phone"
-            type="text"
-            value={form.Phone}
-            onChange={handleChange}
-          />
+          <input id="Phone" name="Phone" type="text" value={form.Phone} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label htmlFor="Department">Department</label>
