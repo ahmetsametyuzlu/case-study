@@ -1,0 +1,86 @@
+# Production: compiled API + Nginx, DB locked down
+services:
+  db-migrate:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: development
+    command: npm run db:migrate
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=1433
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    command: node dist/index.js
+    environment:
+      - NODE_ENV=production
+      - PORT=${API_PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=1433
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+      db-migrate:
+        condition: service_completed_successfully
+    restart: always
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "${APP_PORT}:80"
+    depends_on:
+      - api
+    restart: always
+    networks:
+      - app-network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "127.0.0.1:${DB_PORT}:1433"
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA}
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
+      - MSSQL_PID=${MSSQL_PID}
+    volumes:
+      - mssql-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$${MSSQL_SA_PASSWORD}" -Q "SELECT 1" -C || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mssql-data:
+    driver: local
+

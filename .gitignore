@@ -1,0 +1,28 @@
+# Environment files
+.env.dev
+.env.prod
+.env.test
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+
+# Test & Coverage
+coverage/
+test-results/
+playwright-report/
+
+.idea

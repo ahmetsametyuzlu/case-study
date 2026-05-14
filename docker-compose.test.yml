@@ -1,0 +1,81 @@
+# Test: separate ports and DB for e2e tests
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "${DB_PORT}:1433"
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA}
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
+      - MSSQL_PID=${MSSQL_PID}
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$${MSSQL_SA_PASSWORD}" -Q "SELECT 1" -C || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - app-network
+
+  db-migrate:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: development
+    command: npm run db:migrate
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=1433
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    command: npm run dev
+    environment:
+      - NODE_ENV=test
+      - PORT=${API_PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=1433
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+      db-migrate:
+        condition: service_completed_successfully
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    command: npm run dev -- --host 0.0.0.0 --port ${APP_PORT}
+    environment:
+      - NODE_ENV=test
+      - VITE_API_URL=${VITE_API_URL}
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
