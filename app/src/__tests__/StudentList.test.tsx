@@ -15,16 +15,16 @@ describe('StudentList', () => {
     const students = [
       {
         StudentId: 1,
-        Name: 'Jane Doe',
-        Email: 'jane@example.com',
+        Name: 'Ahmet Samet Yuzlu',
+        Email: 'samet@example.com',
         Phone: '555-0001',
         Department: 'Engineering',
         CreatedDate: '2026-01-15T10:00:00Z',
       },
       {
         StudentId: 2,
-        Name: 'Bob Smith',
-        Email: 'bob@example.com',
+        Name: 'Leen Elachkar',
+        Email: 'leen@example.com',
         Phone: '',
         Department: '',
         CreatedDate: '2026-02-20T12:00:00Z',
@@ -33,9 +33,9 @@ describe('StudentList', () => {
 
     render(<StudentList students={students} onEdit={mockOnEdit} onDelete={mockOnDelete} />);
 
-    expect(screen.getByText('Jane Doe')).toBeInTheDocument();
-    expect(screen.getByText('jane@example.com')).toBeInTheDocument();
-    expect(screen.getByText('Bob Smith')).toBeInTheDocument();
+    expect(screen.getByText('Ahmet Samet Yuzlu')).toBeInTheDocument();
+    expect(screen.getByText('samet@example.com')).toBeInTheDocument();
+    expect(screen.getByText('Leen Elachkar')).toBeInTheDocument();
     expect(screen.getAllByText('Edit')).toHaveLength(2);
     expect(screen.getAllByText('Delete')).toHaveLength(2);
   });

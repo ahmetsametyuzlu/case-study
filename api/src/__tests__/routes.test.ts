@@ -8,8 +8,8 @@ const mockedRepo = studentRepository as jest.Mocked<typeof studentRepository>;
 
 const sampleStudent = {
   StudentId: 1,
-  Name: 'Ahmet Yilmaz',
-  Email: 'ahmet@example.com',
+  Name: 'Ahmet Samet Yuzlu',
+  Email: 'samet@example.com',
   Phone: '555-0001',
   Department: 'Computer Science',
   CreatedDate: new Date('2026-01-15'),
@@ -28,7 +28,7 @@ describe('GET /api/students', () => {
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
-    expect(res.body[0].Name).toBe('Ahmet Yilmaz');
+    expect(res.body[0].Name).toBe('Ahmet Samet Yuzlu');
   });
 
   it('returns 500 on db error', async () => {
@@ -48,7 +48,7 @@ describe('GET /api/students/:id', () => {
     const res = await request(app).get('/api/students/1');
 
     expect(res.status).toBe(200);
-    expect(res.body.Name).toBe('Ahmet Yilmaz');
+    expect(res.body.Name).toBe('Ahmet Samet Yuzlu');
   });
 
   it('returns 404 when student not found', async () => {
@@ -75,20 +75,20 @@ describe('POST /api/students', () => {
 
     const res = await request(app)
       .post('/api/students')
-      .send({ Name: 'Ahmet Yilmaz', Email: 'ahmet@example.com' });
+      .send({ Name: 'Ahmet Samet Yuzlu', Email: 'samet@example.com' });
 
     expect(res.status).toBe(201);
-    expect(res.body.Name).toBe('Ahmet Yilmaz');
+    expect(res.body.Name).toBe('Ahmet Samet Yuzlu');
     expect(mockedRepo.create).toHaveBeenCalledWith({
-      Name: 'Ahmet Yilmaz',
-      Email: 'ahmet@example.com',
+      Name: 'Ahmet Samet Yuzlu',
+      Email: 'samet@example.com',
       Phone: undefined,
       Department: undefined,
     });
   });
 
   it('returns 400 when Name is missing', async () => {
-    const res = await request(app).post('/api/students').send({ Email: 'ahmet@example.com' });
+    const res = await request(app).post('/api/students').send({ Email: 'samet@example.com' });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('Name and Email are required');
@@ -125,14 +125,14 @@ describe('PUT /api/students/:id', () => {
 
     const res = await request(app)
       .put('/api/students/1')
-      .send({ Name: 'Updated Name', Email: 'ahmet@example.com' });
+      .send({ Name: 'Updated Name', Email: 'samet@example.com' });
 
     expect(res.status).toBe(200);
     expect(res.body.Name).toBe('Updated Name');
   });
 
   it('returns 400 when Name is missing', async () => {
-    const res = await request(app).put('/api/students/1').send({ Email: 'ahmet@example.com' });
+    const res = await request(app).put('/api/students/1').send({ Email: 'samet@example.com' });
 
     expect(res.status).toBe(400);
     expect(mockedRepo.update).not.toHaveBeenCalled();

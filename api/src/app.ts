@@ -19,7 +19,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/students', studentRoutes);
 
 app.get('/api', (_req, res) => {
-  res.json({ message: 'CaseStudy API is running!' });
+  res.json({ message: 'API is running!' });
 });
 
 export default app;

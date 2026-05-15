@@ -10,14 +10,14 @@ test.describe('Student Management App', () => {
     await deleteAllStudents();
 
     await createStudent({
-      Name: 'Ahmet Yılmaz',
-      Email: 'ahmet@example.com',
+      Name: 'Ahmet Samet Yuzlu',
+      Email: 'samet@example.com',
       Phone: '555-0001',
       Department: 'Computer Science',
     });
     await createStudent({
-      Name: 'Elif Kaya',
-      Email: 'elif@example.com',
+      Name: 'Leen Elachkar',
+      Email: 'leen@example.com',
       Phone: '555-0002',
       Department: 'Mathematics',
     });
@@ -40,8 +40,8 @@ test.describe('Student Management App', () => {
 
   test('lists students from database', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Ahmet Yılmaz')).toBeVisible();
-    await expect(page.getByText('elif@example.com')).toBeVisible();
+    await expect(page.getByText('Ahmet Samet Yuzlu')).toBeVisible();
+    await expect(page.getByText('leen@example.com')).toBeVisible();
     await expect(page.getByText('Total: 2 students')).toBeVisible();
   });
 

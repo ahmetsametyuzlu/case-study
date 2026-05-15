@@ -3,8 +3,8 @@ import { validateStudentInput, formatStudentDate } from '../utils/validation';
 describe('validateStudentInput', () => {
   it('should return valid for correct input', () => {
     const result = validateStudentInput({
-      Name: 'John Doe',
-      Email: 'john@example.com',
+      Name: 'Ahmet Samet Yuzlu',
+      Email: 'samet@example.com',
     });
     expect(result.valid).toBe(true);
     expect(result.error).toBeUndefined();
@@ -13,7 +13,7 @@ describe('validateStudentInput', () => {
   it('should return error when Name is missing', () => {
     const result = validateStudentInput({
       Name: '',
-      Email: 'john@example.com',
+      Email: 'samet@example.com',
     });
     expect(result.valid).toBe(false);
     expect(result.error).toBe('Name is required');
@@ -21,7 +21,7 @@ describe('validateStudentInput', () => {
 
   it('should return error when Email is missing', () => {
     const result = validateStudentInput({
-      Name: 'John Doe',
+      Name: 'Ahmet Samet Yuzlu',
       Email: '',
     });
     expect(result.valid).toBe(false);
@@ -30,7 +30,7 @@ describe('validateStudentInput', () => {
 
   it('should return error for invalid email format', () => {
     const result = validateStudentInput({
-      Name: 'John Doe',
+      Name: 'Ahmet Samet Yuzlu',
       Email: 'not-an-email',
     });
     expect(result.valid).toBe(false);
@@ -40,7 +40,7 @@ describe('validateStudentInput', () => {
   it('should return error when Name is only whitespace', () => {
     const result = validateStudentInput({
       Name: '   ',
-      Email: 'john@example.com',
+      Email: 'samet@example.com',
     });
     expect(result.valid).toBe(false);
     expect(result.error).toBe('Name is required');

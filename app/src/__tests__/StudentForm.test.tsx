@@ -18,8 +18,8 @@ describe('StudentForm', () => {
   it('renders pre-filled form for editing', () => {
     const student = {
       StudentId: 1,
-      Name: 'John Doe',
-      Email: 'john@example.com',
+      Name: 'Ahmet Samet Yuzlu',
+      Email: 'samet@example.com',
       Phone: '555-1234',
       Department: 'CS',
     };
@@ -27,8 +27,8 @@ describe('StudentForm', () => {
     render(<StudentForm student={student} onSave={mockOnSave} onCancel={mockOnCancel} />);
 
     expect(screen.getByText('Edit Student')).toBeInTheDocument();
-    expect(screen.getByLabelText('Name *')).toHaveValue('John Doe');
-    expect(screen.getByLabelText('Email *')).toHaveValue('john@example.com');
+    expect(screen.getByLabelText('Name *')).toHaveValue('Ahmet Samet Yuzlu');
+    expect(screen.getByLabelText('Email *')).toHaveValue('samet@example.com');
     expect(screen.getByText('Update')).toBeInTheDocument();
   });
 
