@@ -14,7 +14,9 @@ const mockRequest = jest.fn().mockReturnValue({
 
 beforeEach(() => {
   jest.clearAllMocks();
-  mockedGetPool.mockResolvedValue({ request: mockRequest } as unknown as Awaited<ReturnType<typeof getPool>>);
+  mockedGetPool.mockResolvedValue({ request: mockRequest } as unknown as Awaited<
+    ReturnType<typeof getPool>
+  >);
   mockInput.mockReturnValue({ query: mockQuery, input: mockInput });
 });
 
