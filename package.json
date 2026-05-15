@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "docker compose -f docker-compose.dev.yml --env-file .env.dev up --build",
-    "prod": "docker compose -f docker-compose.prod.yml --env-file .env.prod up --build -d",
-    "test:docker": "docker compose -f docker-compose.test.yml --env-file .env.test up --build -d",
+    "up:dev": "docker compose -f docker-compose.dev.yml --env-file .env.dev up --build",
+    "up:prod": "docker compose -f docker-compose.prod.yml --env-file .env.prod up --build -d",
+    "up:test": "docker compose -f docker-compose.test.yml --env-file .env.test up --build -d",
     "down": "docker compose -p casestudy-dev down 2>/dev/null; docker compose -p casestudy-prod down 2>/dev/null; docker compose -p casestudy-test down 2>/dev/null; true",
     "down:dev": "docker compose -p casestudy-dev down",
     "down:prod": "docker compose -p casestudy-prod down",

@@ -14,7 +14,7 @@ A full-stack Student Management application with React, Node.js (Express), SQL S
 cd api && npm install && cd ../app && npm install && cd ../e2e && npm install && cd ..
 
 # 2. Start in development mode (hot-reload)
-npm run dev
+npm run up:dev
 
 # 3. Open the app
 #    Frontend → http://localhost:5173
@@ -35,9 +35,9 @@ Each environment has its own `.env` file:
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start dev environment (foreground, hot-reload) |
-| `npm run prod` | Start production environment |
-| `npm run test:docker` | Start test environment |
+| `npm run up:dev` | Start dev environment (foreground, hot-reload) |
+| `npm run up:prod` | Start production environment |
+| `npm run up:test` | Start test environment |
 | `npm run down` | Stop all environments |
 | `npm run clean` | Remove all containers, volumes, and images |
 
