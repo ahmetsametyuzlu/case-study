@@ -37,7 +37,7 @@ export default function StudentList({ students, onEdit, onDelete }: Props) {
               <td>{s.Email}</td>
               <td>{s.Phone || '-'}</td>
               <td>{s.Department || '-'}</td>
-              <td>{s.CreatedDate ? new Date(s.CreatedDate).toLocaleDateString('tr-TR') : '-'}</td>
+              <td>{s.CreatedDate ? new Date(s.CreatedDate).toLocaleDateString('en-US') : '-'}</td>
               <td className="actions-cell">
                 <button className="btn btn-sm btn-edit" onClick={() => onEdit(s)}>
                   Edit
